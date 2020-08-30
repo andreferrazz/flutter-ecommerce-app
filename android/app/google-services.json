@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "593633843479",
+    "firebase_url": "https://e-commerce-aa26b.firebaseio.com",
+    "project_id": "e-commerce-aa26b",
+    "storage_bucket": "e-commerce-aa26b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:593633843479:android:550e50fbd0aadfaacc7f52",
+        "android_client_info": {
+          "package_name": "com.ferraz.e_commerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "593633843479-p8t3bj6pq3t6gliblphqebvmgrridk0c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ferraz.e_commerce",
+            "certificate_hash": "14b7da216ef2ef17595ea11f64db48e50752583f"
+          }
+        },
+        {
+          "client_id": "593633843479-chrupidj0u8jrthib4a9tq9t7upr5u7v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAbzo0Y4aiWlXbsOvdbX-rpDjkFKC7_YrU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "593633843479-chrupidj0u8jrthib4a9tq9t7upr5u7v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
