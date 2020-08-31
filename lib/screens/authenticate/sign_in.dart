@@ -83,6 +83,7 @@ class _SignInState extends State<SignIn> {
                       dynamic result = await _auth.signInAnon();
                       if(result != null){
                         print(result);
+                        Navigator.pop(context);
                       }else{
                         print('Login failed');
                       }
