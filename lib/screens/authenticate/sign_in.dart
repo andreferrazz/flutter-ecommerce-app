@@ -1,3 +1,4 @@
+import 'package:e_commerce/services/auth.dart';
 import 'package:e_commerce/shared/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,8 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
+  final AuthService _auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +79,14 @@ class _SignInState extends State<SignIn> {
 
                   RaisedButton(
                     child: Text('Sign in anon'),
-                    onPressed: () {},
+                    onPressed: () async {
+                      dynamic result = await _auth.signInAnon();
+                      if(result != null){
+                        print(result);
+                      }else{
+                        print('Login failed');
+                      }
+                    },
                   ),
                   SizedBox(
                     height: 8.0,
