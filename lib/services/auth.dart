@@ -6,6 +6,9 @@ class AuthService {
   // Create custom user from firebase user
 
   // Monitor user authentication
+  Stream<User> get user {
+    return _auth.authStateChanges();
+  }
 
   // Sign in anonymously
   Future signInAnon() async {

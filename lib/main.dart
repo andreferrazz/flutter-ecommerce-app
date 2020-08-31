@@ -1,6 +1,9 @@
 import 'package:e_commerce/screens/wrapper.dart';
+import 'package:e_commerce/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(App());
@@ -33,15 +36,18 @@ class App extends StatelessWidget {
 
         // Once complete, show the application
         if (snapshot.connectionState == ConnectionState.done) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'E-commerce',
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-              visualDensity: VisualDensity.adaptivePlatformDensity,
-            ),
-            home: Container(
-              child: Wrapper(),
+          return StreamProvider<User>.value(
+            value: AuthService().user,
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: 'E-commerce',
+              theme: ThemeData(
+                primarySwatch: Colors.blue,
+                visualDensity: VisualDensity.adaptivePlatformDensity,
+              ),
+              home: Container(
+                child: Wrapper(),
+              ),
             ),
           );
         }
