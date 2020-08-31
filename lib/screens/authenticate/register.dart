@@ -2,26 +2,26 @@ import 'package:e_commerce/shared/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   final Function toggleScreen;
 
-  SignIn({this.toggleScreen});
+  Register({this.toggleScreen});
 
   @override
-  _SignInState createState() => _SignInState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign in'),
+        title: Text('Sign up'),
         actions: <Widget>[
           FlatButton.icon(
             onPressed: widget.toggleScreen,
             icon: Icon(Icons.person),
-            label: Text('Sign up'),
+            label: Text('Sign in'),
             textColor: Colors.white,
           ),
         ],
@@ -36,7 +36,7 @@ class _SignInState extends State<SignIn> {
               Padding(
                 padding: const EdgeInsets.all(48.0),
                 child: Text(
-                  'Sign in',
+                  'Sign up',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 40.0),
                 ),
@@ -44,6 +44,13 @@ class _SignInState extends State<SignIn> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
+                  TextFormField(
+                    decoration: textFieldDecoration.copyWith(hintText: 'Nome'),
+                    onChanged: (value) {},
+                  ),
+                  SizedBox(
+                    height: 24.0,
+                  ),
                   TextFormField(
                     decoration: textFieldDecoration.copyWith(hintText: 'Email'),
                     onChanged: (value) {},
@@ -53,14 +60,15 @@ class _SignInState extends State<SignIn> {
                   ),
                   TextFormField(
                     obscureText: true,
-                    decoration: textFieldDecoration.copyWith(hintText: 'Password'),
+                    decoration:
+                        textFieldDecoration.copyWith(hintText: 'Password'),
                     onChanged: (value) {},
                   ),
                   SizedBox(
                     height: 24.0,
                   ),
                   RaisedButton(
-                    child: Text('Sign in'),
+                    child: Text('Sign up'),
                     onPressed: () {},
                   ),
                 ],
@@ -75,14 +83,7 @@ class _SignInState extends State<SignIn> {
                 children: <Widget>[
 
                   RaisedButton(
-                    child: Text('Sign in anon'),
-                    onPressed: () {},
-                  ),
-                  SizedBox(
-                    height: 8.0,
-                  ),
-                  RaisedButton(
-                    child: Text('Sign in with Google'),
+                    child: Text('Continue with Google'),
                     onPressed: () {},
                   ),
                 ],
