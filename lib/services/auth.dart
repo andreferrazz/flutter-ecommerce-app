@@ -23,13 +23,11 @@ class AuthService {
     }
   }
 
-// Sign in with email and password
-
   // Register with email and password
   Future registerUserWithEmailAndPassword(String email, String password) async {
     try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+      UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(email: email, password: password);
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -37,11 +35,14 @@ class AuthService {
       } else if (e.code == 'email-already-in-use') {
         print('The account already exists for that email.');
       }
+      return e.code;
     } catch (e) {
       print(e.toString());
     }
-    return null;
+    return 'error';
   }
+
+// Sign in with email and password
 
 // Sign in with Google or create account and bind to it
 

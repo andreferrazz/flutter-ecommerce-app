@@ -1,5 +1,6 @@
 import 'package:e_commerce/services/auth.dart';
 import 'package:e_commerce/shared/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,8 @@ class _RegisterState extends State<Register> {
   String _name = '';
   String _email = '';
   String _password = '';
+  String _emailError = '';
+  bool _emailIsValid = true;
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +80,9 @@ class _RegisterState extends State<Register> {
                       if(value.isEmpty){
                         return 'Please supply an email';
                       }
+                      if(!_emailIsValid){
+                        return _emailError;
+                      }
                       return null;
                     },
                   ),
@@ -103,12 +109,21 @@ class _RegisterState extends State<Register> {
                   RaisedButton(
                     child: Text('Sign up'),
                     onPressed: () async {
+                      setState(() => _emailIsValid = true);
                       if (_formKey.currentState.validate()) {
-                        print(_name);
-                        print(_email);
-                        print(_password);
+                        dynamic result = await _auth.registerUserWithEmailAndPassword(_email, _password);
+//                        print(result);
+                        if(result is User){
+                          Navigator.pop(context);
+                        }else{
+                          print('result: $result');
+                          setState(() {
+                            _emailError = result;
+                            _emailIsValid = false;
+                            _formKey.currentState.validate();
+                          });
+                        }
                       }
-//                      dynamic result = await _auth.registerUserWithEmailAndPassword(email, password)
                     },
                   ),
                 ],
