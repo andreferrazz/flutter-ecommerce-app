@@ -38,13 +38,26 @@ class AuthService {
       return e.code;
     } catch (e) {
       print(e.toString());
+      return 'error';
     }
-    return 'error';
   }
 
-// Sign in with email and password
+  // Sign in with email and password
+  Future signInWithEmailAndPassword(String email, String password) async {
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      return userCredential.user;
+    } on FirebaseAuthException catch (e) {
+      print(e.toString());
+      return e.code;
+    } catch (e) {
+      print(e.toString());
+      return 'error';
+    }
+  }
 
-// Sign in with Google or create account and bind to it
+// Sign in with Google
 
   // Sign out
   Future signOut() async {
