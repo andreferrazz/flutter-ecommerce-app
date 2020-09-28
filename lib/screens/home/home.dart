@@ -1,6 +1,8 @@
 import 'package:e_commerce/services/auth.dart';
 import 'package:flutter/material.dart';
 
+import 'home_tab.dart';
+
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -12,7 +14,7 @@ class _HomeState extends State<Home> {
   int _currentIndex = 0;
 
   final _tabs = [
-    Center(child: Text('Home')),
+    HomeTab(),
     Center(child: Text('Cart')),
     Center(child: Text('Favorite')),
     Center(child: Text('Profile')),
@@ -25,6 +27,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_titles[_currentIndex]),
+        centerTitle: true,
         actions: <Widget>[
           FlatButton.icon(
             onPressed: () async {

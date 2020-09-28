@@ -1,5 +1,6 @@
 import 'package:e_commerce/screens/wrapper.dart';
 import 'package:e_commerce/services/auth.dart';
+import 'package:e_commerce/shared/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -41,10 +42,7 @@ class App extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'E-commerce',
-              theme: ThemeData(
-                primarySwatch: Colors.blue,
-                visualDensity: VisualDensity.adaptivePlatformDensity,
-              ),
+              theme: defaultTheme,
               home: Container(
                 child: Wrapper(),
               ),
