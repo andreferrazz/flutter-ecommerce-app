@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -29,10 +27,7 @@ class _ProductCardState extends State<ProductCard> {
         children: <Widget>[
           AspectRatio(
             aspectRatio: 1.5,
-            child: Image.network(
-              _imgUrl,
-              fit: BoxFit.cover,
-            ),
+            child: Image.network(_imgUrl, fit: BoxFit.cover),
           ),
           Expanded(
             child: Padding(
