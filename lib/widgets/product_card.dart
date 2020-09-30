@@ -26,7 +26,7 @@ class _ProductCardState extends State<ProductCard> {
       child: Column(
         children: <Widget>[
           AspectRatio(
-            aspectRatio: 1.5,
+            aspectRatio: 1.2,
             child: Image.network(_imgUrl, fit: BoxFit.cover),
           ),
           Expanded(
@@ -37,7 +37,7 @@ class _ProductCardState extends State<ProductCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
                       widget.product['title'],
                       overflow: TextOverflow.ellipsis,
@@ -48,7 +48,7 @@ class _ProductCardState extends State<ProductCard> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
                       '\$ ${widget.product['price'].toStringAsFixed(2)}',
                       style: TextStyle(
@@ -59,19 +59,31 @@ class _ProductCardState extends State<ProductCard> {
                     ),
                   ),
                   ButtonBar(
-                    // alignment: MainAxisAlignment.spaceEvenly,
+                    alignment: MainAxisAlignment.end,
                     children: <Widget>[
-                      FlatButton(
-                        onPressed: () {
+                      InkWell(
+                        onTap: () {
                           // TODO: redirect to payment page
                         },
-                        child: Text('Buy'),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.favorite_border,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
                       ),
-                      FlatButton(
-                        onPressed: () {
+                      InkWell(
+                        onTap: () {
                           // TODO: add to cart(probably use a service for that)
                         },
-                        child: Icon(Icons.add_shopping_cart),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.add_shopping_cart,
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
                       ),
                     ],
                   )
