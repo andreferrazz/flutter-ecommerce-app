@@ -1,3 +1,4 @@
+import 'package:e_commerce/shared/constants.dart';
 import 'package:flutter/material.dart';
 
 class CartItem extends StatefulWidget {
@@ -20,6 +21,21 @@ class _CartItemState extends State<CartItem> {
     _imgUrl = _product['imgUrl'] ??
         'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmoorestown-mall.com%2Fnoimage.gif&f=1&nofb=1';
     super.initState();
+  }
+
+  void _onSelectedPopupMenuOption(CartOption selectedOption) {
+    switch (selectedOption) {
+      case CartOption.REMOVE:
+        // TODO: remove item from cart list
+        print('Removing...');
+        break;
+      case CartOption.ADD_FAVORITE:
+        // TODO: add item to favorite list
+        print('Adding to favorite list...');
+        break;
+      default:
+        throw Exception('Unexpected argument');
+    }
   }
 
   @override
@@ -56,11 +72,18 @@ class _CartItemState extends State<CartItem> {
                   Positioned(
                     top: 0.0,
                     right: 0.0,
-                    child: IconButton(
-                      icon: Icon(Icons.more_vert, color: Colors.grey[600]),
-                      onPressed: () {
-                        // TODO: show option (remove and something more)
-                      },
+                    child: PopupMenuButton<CartOption>(
+                      onSelected: _onSelectedPopupMenuOption,
+                      itemBuilder: (_) => <PopupMenuItem<CartOption>>[
+                        PopupMenuItem<CartOption>(
+                          value: CartOption.REMOVE,
+                          child: Text('Remove'),
+                        ),
+                        PopupMenuItem<CartOption>(
+                          value: CartOption.ADD_FAVORITE,
+                          child: Text('Add to favorite'),
+                        ),
+                      ],
                     ),
                   ),
                   Positioned(
@@ -76,10 +99,11 @@ class _CartItemState extends State<CartItem> {
                             ),
                             onTap: () {
                               // TODO: decrement amount
-                              if(_product['amount'] == 0) return;
+                              if (_product['amount'] == 0) return;
                               setState(() {
                                 _product['amount']--;
-                                _product['total'] = _product['amount'] * _product['price'];
+                                _product['total'] =
+                                    _product['amount'] * _product['price'];
                               });
                             },
                           ),
@@ -94,10 +118,11 @@ class _CartItemState extends State<CartItem> {
                             ),
                             onTap: () {
                               // TODO: increment amount
-                              if(_product['amount'] == 10) return;
+                              if (_product['amount'] == 10) return;
                               setState(() {
                                 _product['amount']++;
-                                _product['total'] = _product['amount'] * _product['price'];
+                                _product['total'] =
+                                    _product['amount'] * _product['price'];
                               });
                             },
                           ),

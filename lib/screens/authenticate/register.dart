@@ -1,5 +1,5 @@
 import 'package:e_commerce/services/auth.dart';
-import 'package:e_commerce/shared/constants.dart';
+import 'package:e_commerce/shared/styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
