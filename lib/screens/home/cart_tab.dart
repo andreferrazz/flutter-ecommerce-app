@@ -1,4 +1,4 @@
-import 'package:e_commerce/widgets/cart_item.dart';
+import 'package:e_commerce/widgets/cart_tile.dart';
 import 'package:flutter/material.dart';
 
 class CartTab extends StatefulWidget {
@@ -27,7 +27,7 @@ class _CartTabState extends State<CartTab> {
       padding: EdgeInsets.all(8.0),
       child: ListView.builder(
         itemCount: fakeItems.length,
-        itemBuilder: (context, index) => CartItem(fakeItems[index]),
+        itemBuilder: (context, index) => CartTile(fakeItems[index]),
       ),
     );
   }

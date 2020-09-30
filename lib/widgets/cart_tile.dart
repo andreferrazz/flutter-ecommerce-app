@@ -1,16 +1,16 @@
 import 'package:e_commerce/shared/constants.dart';
 import 'package:flutter/material.dart';
 
-class CartItem extends StatefulWidget {
+class CartTile extends StatefulWidget {
   final Map<String, dynamic> product;
 
-  CartItem(this.product);
+  CartTile(this.product);
 
   @override
-  _CartItemState createState() => _CartItemState();
+  _CartTileState createState() => _CartTileState();
 }
 
-class _CartItemState extends State<CartItem> {
+class _CartTileState extends State<CartTile> {
   final _height = 100.0;
   String _imgUrl;
   Map<String, dynamic> _product;
