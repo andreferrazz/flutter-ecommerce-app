@@ -1,5 +1,6 @@
 import 'package:e_commerce/screens/home/cart_tab.dart';
 import 'package:e_commerce/screens/home/favorite_tab.dart';
+import 'package:e_commerce/screens/home/profile_tab.dart';
 import 'package:e_commerce/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class _HomeState extends State<Home> {
     HomeTab(),
     CartTab(),
     FavoriteTab(),
-    Center(child: Text('Profile')),
+    ProfileTab(),
   ];
 
   final _titles = ['Home', 'Cart', 'Favorite', 'Profile'];
