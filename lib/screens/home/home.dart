@@ -1,4 +1,5 @@
 import 'package:e_commerce/screens/home/cart_tab.dart';
+import 'package:e_commerce/screens/home/favorite_tab.dart';
 import 'package:e_commerce/services/auth.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class _HomeState extends State<Home> {
   final _tabs = [
     HomeTab(),
     CartTab(),
-    Center(child: Text('Favorite')),
+    FavoriteTab(),
     Center(child: Text('Profile')),
   ];
 

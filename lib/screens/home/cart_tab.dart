@@ -1,16 +1,29 @@
 import 'package:e_commerce/widgets/cart_tile.dart';
 import 'package:flutter/material.dart';
 
-class CartTab extends StatefulWidget {
-  @override
-  _CartTabState createState() => _CartTabState();
-}
-
-class _CartTabState extends State<CartTab> {
+class CartTab extends StatelessWidget {
   final fakeItems = [
-    {'title': 'item1', 'price': 100.0, 'amount': 1, 'total': 100.0, 'imgUrl': null},
-    {'title': 'item2', 'price': 200.0, 'amount': 1, 'total': 200.0, 'imgUrl': null},
-    {'title': 'item3', 'price': 300.0, 'amount': 1, 'total': 300.0, 'imgUrl': null},
+    {
+      'title': 'item1',
+      'price': 100.0,
+      'amount': 1,
+      'total': 100.0,
+      'imgUrl': null
+    },
+    {
+      'title': 'item2',
+      'price': 200.0,
+      'amount': 1,
+      'total': 200.0,
+      'imgUrl': null
+    },
+    {
+      'title': 'item3',
+      'price': 300.0,
+      'amount': 1,
+      'total': 300.0,
+      'imgUrl': null
+    },
     {
       'title': 'item4',
       'price': 50.0,
