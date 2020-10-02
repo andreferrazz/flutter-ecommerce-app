@@ -20,6 +20,7 @@ class _ProductDetailsState extends State<ProductDetails> {
       'price': 150.0,
       'imgUrl': null,
       'cart': true,
+      'favorites': false,
     };
     _imgUrl = _fakeProduct['imgUrl'] ??
         'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmoorestown-mall.com%2Fnoimage.gif&f=1&nofb=1';
@@ -33,6 +34,16 @@ class _ProductDetailsState extends State<ProductDetails> {
         title: Text(_fakeProduct['title']),
         centerTitle: true,
         elevation: 0.0,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.favorite),
+            onPressed: (){},
+          ),
+          IconButton(
+            icon: Icon(Icons.shopping_cart),
+            onPressed: (){},
+          ),
+        ],
       ),
       body: ListView(
         children: <Widget>[
@@ -120,18 +131,41 @@ class _ProductDetailsState extends State<ProductDetails> {
               horizontal: 16.0,
               vertical: 4.0,
             ),
-            child: OutlineButton(
-              onPressed: _fakeProduct['cart'] ? null : () {},
-              color: Colors.white,
-              borderSide: BorderSide(color: Theme.of(context).primaryColor),
-              child: Text(
-                'Add to cart',
-                style: TextStyle(
-                  color: _fakeProduct['cart']
-                      ? null
-                      : Theme.of(context).primaryColor,
+            child: Row(
+
+              children: <Widget>[
+                Expanded(
+                  child: OutlineButton(
+                    onPressed: _fakeProduct['cart'] ? null : () {},
+                    color: Colors.white,
+                    borderSide: BorderSide(color: Theme.of(context).primaryColor),
+                    child: Text(
+                      'Add to cart',
+                      style: TextStyle(
+                        color: _fakeProduct['cart']
+                            ? null
+                            : Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+                SizedBox(width: 8.0,),
+                Expanded(
+                  child: OutlineButton(
+                    onPressed: _fakeProduct['favorites'] ? null : () {},
+                    color: Colors.white,
+                    borderSide: BorderSide(color: Theme.of(context).primaryColor),
+                    child: Text(
+                      'Add to favorites',
+                      style: TextStyle(
+                        color: _fakeProduct['favorites']
+                            ? null
+                            : Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           )
         ],
