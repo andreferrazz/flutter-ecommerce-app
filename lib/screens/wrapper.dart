@@ -1,4 +1,5 @@
 import 'package:e_commerce/screens/authenticate/authenticate_root.dart';
+import 'package:e_commerce/screens/details/product_details.dart';
 import 'package:e_commerce/screens/home/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,6 @@ class Wrapper extends StatelessWidget {
 
     if(user == null) return AuthenticateRoot();
 
-    return Home();
+    return ProductDetails();
   }
 }
