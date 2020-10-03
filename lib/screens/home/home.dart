@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
     ProfileTab(),
   ];
 
-  final _titles = ['Home', 'Cart', 'Favorite', 'Profile'];
+  final _titles = ['Home', 'Cart', 'Favorites', 'Profile'];
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +31,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text(_titles[_currentIndex]),
         centerTitle: true,
+        elevation: 0,
         actions: <Widget>[
           FlatButton.icon(
             onPressed: () async {
