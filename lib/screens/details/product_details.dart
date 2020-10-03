@@ -32,7 +32,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_fakeProduct['title']),
-        centerTitle: true,
+        // centerTitle: true,
         elevation: 0.0,
         actions: <Widget>[
           IconButton(

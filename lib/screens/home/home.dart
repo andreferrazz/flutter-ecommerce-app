@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_titles[_currentIndex]),
-        centerTitle: true,
+        // centerTitle: true,
         elevation: 0,
         actions: <Widget>[
           FlatButton.icon(
