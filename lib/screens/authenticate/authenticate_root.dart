@@ -18,8 +18,12 @@ class AuthenticateRoot extends StatelessWidget {
 //            mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Expanded(
-                  child: RaisedButton(
-                    child: Text('Sign in'),
+                  child: OutlineButton(
+                    borderSide:
+                        BorderSide(color: Theme.of(context).primaryColor),
+                    child: Text('Sign in',
+                        style:
+                            TextStyle(color: Theme.of(context).primaryColor)),
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(builder: (_) {
                         return Authenticate(showSignIn: true);
@@ -30,7 +34,10 @@ class AuthenticateRoot extends StatelessWidget {
                 SizedBox(width: 8.0),
                 Expanded(
                   child: RaisedButton(
-                    child: Text('Sign up'),
+                    color: Theme.of(context).primaryColor,
+                    elevation: 0,
+                    child:
+                        Text('Sign up', style: TextStyle(color: Colors.white)),
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(builder: (_) {
                         return Authenticate(showSignIn: false);
