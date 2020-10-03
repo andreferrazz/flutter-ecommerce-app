@@ -142,7 +142,10 @@ class _SignInState extends State<SignIn> {
                           height: 24.0,
                         ),
                         RaisedButton(
-                          child: Text('Sign in'),
+                          color: Theme.of(context).primaryColor,
+                          elevation: 0,
+                          child: Text('Sign in',
+                              style: TextStyle(color: Colors.white)),
                           onPressed: _signIn,
                         ),
                       ],
@@ -150,29 +153,31 @@ class _SignInState extends State<SignIn> {
                     Text(
                       'ou',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20.0),
+                      style: TextStyle(fontSize: 20.0, color: Colors.grey[700]),
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         RaisedButton(
-                          child: Text('Sign in anon'),
-                          onPressed: () async {
-                            dynamic result = await _auth.signInAnon();
-                            if (result != null) {
-                              print(result);
-                              Navigator.pop(context);
-                            } else {
-                              print('Login failed');
-                            }
+                          color: Color.fromARGB(255, 219, 68, 55),
+                          elevation: 0,
+                          child: Text('Sign in with Google',
+                              style: TextStyle(color: Colors.white)),
+                          onPressed: () {
+                            // TODO: call the auth service to sign in with google
                           },
                         ),
                         SizedBox(
                           height: 8.0,
                         ),
                         RaisedButton(
-                          child: Text('Sign in with Google'),
-                          onPressed: () {},
+                          color: Color.fromARGB(255, 66, 103, 178),
+                          elevation: 0,
+                          child: Text('Sign in with Facebook',
+                              style: TextStyle(color: Colors.white)),
+                          onPressed: () async {
+                            // TODO: call the auth service to sign in with facebook
+                          },
                         ),
                       ],
                     )
