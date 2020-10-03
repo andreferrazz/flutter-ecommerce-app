@@ -159,7 +159,10 @@ class _RegisterState extends State<Register> {
                           height: 24.0,
                         ),
                         RaisedButton(
-                          child: Text('Sign up'),
+                          color: Theme.of(context).primaryColor,
+                          elevation: 0,
+                          child: Text('Sign up',
+                              style: TextStyle(color: Colors.white)),
                           onPressed: _signUp,
                         ),
                       ],
@@ -167,11 +170,33 @@ class _RegisterState extends State<Register> {
                     Text(
                       'ou',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 20.0),
+                      style: TextStyle(fontSize: 20.0, color: Colors.grey[700]),
                     ),
-                    RaisedButton(
-                      child: Text('Continue with Google'),
-                      onPressed: () {},
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        RaisedButton(
+                          color: Color.fromARGB(255, 219, 68, 55),
+                          elevation: 0,
+                          child: Text('Continue with Google',
+                              style: TextStyle(color: Colors.white)),
+                          onPressed: () {
+                            // TODO: call the auth service to sign in with google
+                          },
+                        ),
+                        SizedBox(
+                          height: 8.0,
+                        ),
+                        RaisedButton(
+                          color: Color.fromARGB(255, 66, 103, 178),
+                          elevation: 0,
+                          child: Text('Continue with Facebook',
+                              style: TextStyle(color: Colors.white)),
+                          onPressed: () async {
+                            // TODO: call the auth service to sign in with facebook
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
