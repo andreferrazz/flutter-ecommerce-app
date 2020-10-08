@@ -10,5 +10,9 @@ const textFieldDecoration = InputDecoration(
 // default ThemeData
 final defaultTheme = ThemeData(
   primarySwatch: Colors.blue,
+  buttonColor: Colors.blue,
+  buttonTheme: ButtonThemeData(
+    textTheme: ButtonTextTheme.primary,
+  ),
   visualDensity: VisualDensity.adaptivePlatformDensity,
 );

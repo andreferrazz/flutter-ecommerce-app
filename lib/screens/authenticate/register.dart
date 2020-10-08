@@ -1,6 +1,6 @@
+import 'package:e_commerce/models/custom_user.dart';
 import 'package:e_commerce/services/auth.dart';
 import 'package:e_commerce/shared/styles.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -37,10 +37,10 @@ class _RegisterState extends State<Register> {
     // Try to register with the data provided.
     // Return the User on success, otherwise, return an error code
     dynamic result =
-        await _auth.registerUserWithEmailAndPassword(_email, _password);
+        await _auth.registerUserWithEmailAndPassword(_email, _password, name: _name);
 
     // Redirect to Home screen
-    if (result is User) {
+    if (result is CustomUser) {
       print(result);
       Navigator.pop(context);
       return;

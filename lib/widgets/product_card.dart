@@ -1,9 +1,11 @@
+import 'package:e_commerce/models/product.dart';
 import 'package:e_commerce/screens/details/product_details.dart';
+import 'package:e_commerce/shared/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatefulWidget {
-  final Map<String, dynamic> product;
+  final Product product;
 
   ProductCard(this.product);
 
@@ -16,8 +18,7 @@ class _ProductCardState extends State<ProductCard> {
 
   @override
   void initState() {
-    _imgUrl = widget.product['imgUrl'] ??
-        'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmoorestown-mall.com%2Fnoimage.gif&f=1&nofb=1';
+    _imgUrl = widget.product.imgUrl ?? NO_IMAGE_URL;
     super.initState();
   }
 
@@ -48,7 +49,7 @@ class _ProductCardState extends State<ProductCard> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Text(
-                        widget.product['title'],
+                        widget.product.title,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 18.0,
@@ -59,7 +60,7 @@ class _ProductCardState extends State<ProductCard> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Text(
-                        '\$ ${widget.product['price'].toStringAsFixed(2)}',
+                        '\$ ${(widget.product.price / 100).toStringAsFixed(2)}',
                         style: TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
@@ -86,6 +87,7 @@ class _ProductCardState extends State<ProductCard> {
                         InkWell(
                           onTap: () {
                             // TODO: add to cart(probably use a service for that)
+
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),

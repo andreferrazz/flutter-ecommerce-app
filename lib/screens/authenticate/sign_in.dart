@@ -1,6 +1,6 @@
+import 'package:e_commerce/models/custom_user.dart';
 import 'package:e_commerce/services/auth.dart';
 import 'package:e_commerce/shared/styles.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -39,8 +39,8 @@ class _SignInState extends State<SignIn> {
     dynamic result = await _auth.signInWithEmailAndPassword(_email, _password);
 
     // Redirect to Home screen
-    if (result is User) {
-      print(result);
+    if (result is CustomUser) {
+      // print(result);
       Navigator.pop(context);
       return;
     }

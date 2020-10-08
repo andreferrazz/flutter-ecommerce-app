@@ -1,7 +1,7 @@
+import 'package:e_commerce/models/custom_user.dart';
 import 'package:e_commerce/screens/wrapper.dart';
 import 'package:e_commerce/services/auth.dart';
 import 'package:e_commerce/shared/styles.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +37,10 @@ class App extends StatelessWidget {
 
         // Once complete, show the application
         if (snapshot.connectionState == ConnectionState.done) {
-          return StreamProvider<User>.value(
+          return StreamProvider<CustomUser>.value(
+            catchError: (context, err){
+              return null;
+            },
             value: AuthService().user,
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
