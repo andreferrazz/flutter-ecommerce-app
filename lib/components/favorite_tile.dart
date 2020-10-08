@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:e_commerce/screens/details/product_details.dart';
-import 'package:e_commerce/shared/constants.dart';
+import 'package:e_commerce/util/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

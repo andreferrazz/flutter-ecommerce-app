@@ -1,4 +1,4 @@
-import 'package:e_commerce/widgets/profile_tile.dart';
+import 'package:e_commerce/components/profile_tile.dart';
 import 'package:flutter/material.dart';
 
 class ProfileTab extends StatelessWidget {

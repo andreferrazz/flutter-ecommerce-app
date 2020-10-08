@@ -17,8 +17,8 @@ class _HomeState extends State<Home> {
   int _currentIndex = 0;
 
   final _tabs = [
-    HomeTab(),
-    // TestTab(),
+    // HomeTab(),
+    TestTab(),
     CartTab(),
     FavoriteTab(),
     ProfileTab(),

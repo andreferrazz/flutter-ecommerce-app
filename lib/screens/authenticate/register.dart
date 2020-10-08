@@ -1,6 +1,6 @@
 import 'package:e_commerce/models/custom_user.dart';
 import 'package:e_commerce/services/auth.dart';
-import 'package:e_commerce/shared/styles.dart';
+import 'package:e_commerce/theme/style.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

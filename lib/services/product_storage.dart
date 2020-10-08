@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/models/product.dart';
+import 'package:e_commerce/util/datetime.dart';
 
 class ProductStorageService {
   static final ProductStorageService _instance =
@@ -28,8 +29,13 @@ class ProductStorageService {
 
   // Get all products
   Future<List<Product>> getAll() {
-    return _products.get().then((value) {
-      return value.docs.map((e) => Product.fromJson(e.data())).toList();
+    return _products.orderBy('createdAt').get().then((value) {
+      return value.docs.map((e) {
+        var data = e.data();
+        data['createdAt'] = timestampToDateTime(e.data()['createdAt']);
+        // print(data);
+        return Product.fromJson(data);
+      }).toList();
     });
   }
 }

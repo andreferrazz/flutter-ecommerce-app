@@ -1,4 +1,4 @@
-import 'package:e_commerce/widgets/favorite_tile.dart';
+import 'package:e_commerce/components/favorite_tile.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteTab extends StatelessWidget {

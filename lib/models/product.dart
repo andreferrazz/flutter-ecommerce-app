@@ -4,10 +4,12 @@ class Product {
   String _description;
   String _imgUrl;
   int _price;
+  DateTime _createdAt;
 
   Product(this._title, this._description, this._imgUrl, this._price,
-      {String id}) {
+      {DateTime createdAt, String id}) {
     _id = id;
+    _createdAt = createdAt;
   }
 
   Product.fromJson(Map<String, dynamic> map)
@@ -15,7 +17,8 @@ class Product {
         _title = map['title'],
         _description = map['description'],
         _imgUrl = map['imgUrl'],
-        _price = map['price'];
+        _price = map['price'],
+        _createdAt = map['createdAt'];
 
   Map<String, dynamic> toJson() {
     return {
@@ -24,12 +27,13 @@ class Product {
       'description': _description,
       'imgUrl': _imgUrl,
       'price': _price,
+      'createdAt': _createdAt,
     };
   }
 
   @override
   String toString() {
-    return 'Product{_id: $_id, _title: $_title, _description: $_description, _imgUrl: $_imgUrl, _price: $_price}';
+    return 'Product{_id: $_id, _title: $_title, _description: $_description, _imgUrl: $_imgUrl, _price: $_price, _createdAt: $_createdAt}';
   }
 
   String get id => _id;

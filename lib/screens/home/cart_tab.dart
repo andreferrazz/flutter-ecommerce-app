@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:e_commerce/widgets/cart_tile.dart';
+import 'package:e_commerce/components/cart_tile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
