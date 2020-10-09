@@ -13,9 +13,11 @@ class TestTab extends StatelessWidget {
     return Center(
       child: RaisedButton(
         onPressed: () async {
-          Product product = await ProductStorageService().getAll().then((value) => value[2]);
+          Product product =
+              await ProductStorageService().getAll().then((value) => value[2]);
           // print(product);
-          bool result = await CartService().addToCart(product, Provider.of<CustomUser>(context, listen: false).id);
+          bool result = await CartService().addToCart(
+              product, Provider.of<CustomUser>(context, listen: false).id);
           print(result);
           // ProductStorageService().addProduct(Product(
           //   'Monitor',
@@ -33,6 +35,9 @@ class TestTab extends StatelessWidget {
 }
 
 class HomeTab extends StatelessWidget {
+  HomeTab(this._globalKey);
+
+  final GlobalKey<ScaffoldState> _globalKey;
   final ProductStorageService _productStorageService = ProductStorageService();
 
   @override
@@ -56,7 +61,11 @@ class HomeTab extends StatelessWidget {
               ),
               itemCount: snapshot.data.length,
               itemBuilder: (context, index) {
-                return ProductCard(snapshot.data[index]);
+                return ProductCard(
+                  snapshot.data[index],
+                  Provider.of<CustomUser>(context, listen: false).id,
+                  _globalKey,
+                );
               },
             ),
           );

@@ -1,24 +1,62 @@
 import 'package:e_commerce/models/product.dart';
 import 'package:e_commerce/screens/details/product_details.dart';
+import 'package:e_commerce/services/cart.dart';
 import 'package:e_commerce/util/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatefulWidget {
   final Product product;
+  final String userId;
+  final GlobalKey<ScaffoldState> globalKey;
 
-  ProductCard(this.product);
+  ProductCard(this.product, this.userId, this.globalKey);
 
   @override
   _ProductCardState createState() => _ProductCardState();
 }
 
 class _ProductCardState extends State<ProductCard> {
+  CartService _cartService = CartService();
   String _imgUrl;
+  bool _isInCart = false;
+
+  addToCart() {
+    // Check if product is already in the cart
+    if(_isInCart){
+      widget.globalKey.currentState.showSnackBar(SnackBar(
+        // backgroundColor: Colors.red,
+        content: Text('Product is already in the cart!'),
+        duration: Duration(seconds: 5),
+      ));
+      return;
+    }
+
+    // Add product to the cart
+    _cartService.addToCart(widget.product, widget.userId).then((result) {
+      if (result) {
+        widget.globalKey.currentState.showSnackBar(SnackBar(
+          backgroundColor: Colors.green,
+          content: Text('Product added to cart!'),
+          duration: Duration(seconds: 5),
+        ));
+        setState(() => _isInCart = true);
+      }else {
+        widget.globalKey.currentState.showSnackBar(SnackBar(
+          backgroundColor: Colors.red,
+          content: Text('Product not added to cart!'),
+          duration: Duration(seconds: 5),
+        ));
+      }
+    });
+  }
 
   @override
   void initState() {
     _imgUrl = widget.product.imgUrl ?? NO_IMAGE_URL;
+    _cartService.isInCart(widget.product.id, widget.userId).then((value) {
+      setState(() => _isInCart = value);
+    });
     super.initState();
   }
 
@@ -85,14 +123,13 @@ class _ProductCardState extends State<ProductCard> {
                           ),
                         ),
                         InkWell(
-                          onTap: () {
-                            // TODO: add to cart(probably use a service for that)
-
-                          },
+                          onTap: addToCart,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Icon(
-                              Icons.add_shopping_cart,
+                              _isInCart
+                                  ? Icons.shopping_cart
+                                  : Icons.add_shopping_cart,
                               color: Theme.of(context).primaryColor,
                             ),
                           ),

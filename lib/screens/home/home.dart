@@ -13,22 +13,31 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final AuthService _auth = AuthService();
+  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
 
   int _currentIndex = 0;
 
-  final _tabs = [
-    // HomeTab(),
-    TestTab(),
-    CartTab(),
-    FavoriteTab(),
-    ProfileTab(),
-  ];
+  List<Widget> _tabs;
 
   final _titles = ['Home', 'Cart', 'Favorites', 'Profile'];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    _tabs = [
+      HomeTab(_key),
+      // TestTab(),
+      CartTab(),
+      FavoriteTab(),
+      ProfileTab(),
+    ];
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
       appBar: AppBar(
         title: Text(_titles[_currentIndex]),
         // centerTitle: true,
