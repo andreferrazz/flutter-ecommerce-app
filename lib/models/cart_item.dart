@@ -55,4 +55,8 @@ class CartItem extends Product {
   }
 
   int get amount => _amount;
+
+  set amount(int value) {
+    _amount = value;
+  }
 }

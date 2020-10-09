@@ -1,8 +1,9 @@
+import 'package:e_commerce/models/cart_item.dart';
 import 'package:e_commerce/util/constants.dart';
 import 'package:flutter/material.dart';
 
 class CartTile extends StatefulWidget {
-  final Map<String, dynamic> product;
+  final CartItem product;
 
   CartTile(this.product);
 
@@ -13,13 +14,12 @@ class CartTile extends StatefulWidget {
 class _CartTileState extends State<CartTile> {
   final _height = 100.0;
   String _imgUrl;
-  Map<String, dynamic> _product;
+  CartItem _product;
 
   @override
   void initState() {
     _product = widget.product;
-    _imgUrl = _product['imgUrl'] ??
-        'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmoorestown-mall.com%2Fnoimage.gif&f=1&nofb=1';
+    _imgUrl = _product.imgUrl ?? NO_IMAGE_URL;
     super.initState();
   }
 
@@ -27,6 +27,7 @@ class _CartTileState extends State<CartTile> {
     switch (selectedOption) {
       case CartOption.REMOVE:
         // TODO: remove item from cart list
+
         print('Removing...');
         break;
       case CartOption.ADD_FAVORITE:
@@ -49,6 +50,7 @@ class _CartTileState extends State<CartTile> {
               _imgUrl,
               fit: BoxFit.cover,
               height: _height,
+              width: double.maxFinite,
             ),
           ),
           Flexible(
@@ -61,7 +63,7 @@ class _CartTileState extends State<CartTile> {
                     top: 16.0,
                     left: 16.0,
                     child: Text(
-                      _product['title'],
+                      _product.title,
                       style: TextStyle(
                         fontSize: 18.0,
                         color: Colors.grey[800],
@@ -98,17 +100,17 @@ class _CartTileState extends State<CartTile> {
                               child: Icon(Icons.remove, color: Colors.red),
                             ),
                             onTap: () {
-                              // TODO: decrement amount
-                              if (_product['amount'] == 0) return;
+                              // TODO: update subtotal and total values on cart tab
+                              if (_product.amount == 1) return;
                               setState(() {
-                                _product['amount']--;
-                                _product['total'] =
-                                    _product['amount'] * _product['price'];
+                                _product.amount--;
+                                _product.total =
+                                    _product.amount * _product.price;
                               });
                             },
                           ),
                           Text(
-                            '${_product['amount']}',
+                            '${_product.amount}',
                             style: TextStyle(color: Colors.grey[600]),
                           ),
                           InkWell(
@@ -117,12 +119,12 @@ class _CartTileState extends State<CartTile> {
                               child: Icon(Icons.add, color: Colors.blue),
                             ),
                             onTap: () {
-                              // TODO: increment amount
-                              if (_product['amount'] == 10) return;
+                              // TODO: update subtotal and total values on cart tab
+                              if (_product.amount == 10) return;
                               setState(() {
-                                _product['amount']++;
-                                _product['total'] =
-                                    _product['amount'] * _product['price'];
+                                _product.amount++;
+                                _product.total =
+                                    _product.amount * _product.price;
                               });
                             },
                           ),
@@ -132,7 +134,7 @@ class _CartTileState extends State<CartTile> {
                     bottom: 16.0,
                     right: 22.0,
                     child: Text(
-                      '\$ ${_product['total'].toStringAsFixed(2)}',
+                      '\$ ${(_product.total / 100).toStringAsFixed(2)}',
                       style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.bold,
