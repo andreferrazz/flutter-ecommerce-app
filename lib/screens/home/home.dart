@@ -27,7 +27,7 @@ class _HomeState extends State<Home> {
     _tabs = [
       HomeTab(_key),
       // TestTab(),
-      CartTab(),
+      CartTab(_key),
       FavoriteTab(),
       ProfileTab(),
     ];

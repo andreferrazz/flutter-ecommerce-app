@@ -7,58 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CartTab extends StatefulWidget {
-  // final fakeItems = [
-  //   {
-  //     'title': 'item1',
-  //     'price': 100.0,
-  //     'amount': 1,
-  //     'total': 100.0,
-  //     'imgUrl': null
-  //   },
-  //   {
-  //     'title': 'item2',
-  //     'price': 200.0,
-  //     'amount': 1,
-  //     'total': 200.0,
-  //     'imgUrl': null
-  //   },
-  //   {
-  //     'title': 'item3',
-  //     'price': 300.0,
-  //     'amount': 1,
-  //     'total': 300.0,
-  //     'imgUrl': null
-  //   },
-  //   {
-  //     'title': 'item1',
-  //     'price': 100.0,
-  //     'amount': 1,
-  //     'total': 100.0,
-  //     'imgUrl': null
-  //   },
-  //   {
-  //     'title': 'item2',
-  //     'price': 200.0,
-  //     'amount': 1,
-  //     'total': 200.0,
-  //     'imgUrl': null
-  //   },
-  //   {
-  //     'title': 'item3',
-  //     'price': 300.0,
-  //     'amount': 1,
-  //     'total': 300.0,
-  //     'imgUrl': null
-  //   },
-  //   {
-  //     'title': 'item4',
-  //     'price': 50.0,
-  //     'amount': 1,
-  //     'total': 50.0,
-  //     'imgUrl':
-  //         'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.iTh4TBHYy0iAjn2Fyp5pGwHaEK%26pid%3DApi&f=1'
-  //   },
-  // ];
+  final GlobalKey<ScaffoldState> globalKey;
+
+  CartTab(this.globalKey);
+
   @override
   _CartTabState createState() => _CartTabState();
 }
@@ -71,6 +23,33 @@ class _CartTabState extends State<CartTab> {
   double shipping = 0.0;
 
   double total = 0.0;
+
+  Function removeItem;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    removeItem = (CartItem product, String userId) {
+      _cartService.removeItem(product, userId).then((result) {
+        if (result) {
+          setState(() {});
+
+          widget.globalKey.currentState.showSnackBar(SnackBar(
+            content: Text('Product removed from cart'),
+            backgroundColor: Colors.green,
+            duration: Duration(seconds: 3),
+          ));
+        } else {
+          widget.globalKey.currentState.showSnackBar(SnackBar(
+            content: Text('Product not removed from cart'),
+            backgroundColor: Colors.red,
+            duration: Duration(seconds: 3),
+          ));
+        }
+      });
+    };
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,8 +76,12 @@ class _CartTabState extends State<CartTab> {
                   padding: EdgeInsets.only(top: 8.0, right: 8.0, left: 8.0),
                   child: ListView.builder(
                     itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) =>
-                        CartTile(snapshot.data[index]),
+                    itemBuilder: (context, index) => CartTile(
+                      snapshot.data[index],
+                      Provider.of<CustomUser>(context, listen: false).id,
+                      widget.globalKey,
+                      removeItem,
+                    ),
                   ),
                 ),
               ),

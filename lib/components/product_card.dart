@@ -27,7 +27,7 @@ class _ProductCardState extends State<ProductCard> {
       widget.globalKey.currentState.showSnackBar(SnackBar(
         // backgroundColor: Colors.red,
         content: Text('Product is already in the cart!'),
-        duration: Duration(seconds: 5),
+        duration: Duration(seconds: 3),
       ));
       return;
     }
@@ -38,14 +38,14 @@ class _ProductCardState extends State<ProductCard> {
         widget.globalKey.currentState.showSnackBar(SnackBar(
           backgroundColor: Colors.green,
           content: Text('Product added to cart!'),
-          duration: Duration(seconds: 5),
+          duration: Duration(seconds: 3),
         ));
         setState(() => _isInCart = true);
       }else {
         widget.globalKey.currentState.showSnackBar(SnackBar(
           backgroundColor: Colors.red,
           content: Text('Product not added to cart!'),
-          duration: Duration(seconds: 5),
+          duration: Duration(seconds: 3),
         ));
       }
     });

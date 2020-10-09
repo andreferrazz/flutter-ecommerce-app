@@ -43,9 +43,10 @@ class CartItem extends Product {
     };
   }
 
+
   @override
   String toString() {
-    return 'CartItem{_amount: $_amount, _total: $_total, _createdAt: $_addedAt}';
+    return super.toString() + 'CartItem{_amount: $_amount, _total: $_total, _addedAt: $_addedAt}';
   }
 
   int get total => _total;

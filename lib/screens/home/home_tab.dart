@@ -1,3 +1,4 @@
+import 'package:e_commerce/models/cart_item.dart';
 import 'package:e_commerce/models/custom_user.dart';
 import 'package:e_commerce/models/product.dart';
 import 'package:e_commerce/services/cart.dart';
@@ -13,12 +14,20 @@ class TestTab extends StatelessWidget {
     return Center(
       child: RaisedButton(
         onPressed: () async {
-          Product product =
-              await ProductStorageService().getAll().then((value) => value[2]);
+          CartItem product = await CartService()
+              .getAll(Provider.of<CustomUser>(context, listen: false).id)
+              .then((value) => value[0]);
+          CartService().removeItem(
+              product,
+              Provider.of<CustomUser>(context, listen: false).id);
+
+          // Product product =
+          //     await ProductStorageService().getAll().then((value) => value[2]);
           // print(product);
-          bool result = await CartService().addToCart(
-              product, Provider.of<CustomUser>(context, listen: false).id);
-          print(result);
+          // bool result = await CartService().addToCart(
+          //     product, Provider.of<CustomUser>(context, listen: false).id);
+          // print(result);
+
           // ProductStorageService().addProduct(Product(
           //   'Monitor',
           //   'Um monitor da hora',

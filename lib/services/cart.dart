@@ -64,4 +64,17 @@ class CartService {
     for (CartItem item in items) if (item.id == productId) return true;
     return false;
   }
+
+  // Remove item
+  Future<bool> removeItem(CartItem product, String userId) {
+    return _users.doc(userId).update({
+      'cartList': FieldValue.arrayRemove([product.toJson()])
+    }).then((value) {
+      print('Product removed from cart.');
+      return true;
+    }).catchError((err){
+      print('Failed to remove product from cart.');
+      return false;
+    });
+  }
 }

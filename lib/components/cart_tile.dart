@@ -1,17 +1,22 @@
 import 'package:e_commerce/models/cart_item.dart';
+import 'package:e_commerce/services/cart.dart';
 import 'package:e_commerce/util/constants.dart';
 import 'package:flutter/material.dart';
 
 class CartTile extends StatefulWidget {
   final CartItem product;
+  final String userId;
+  final GlobalKey<ScaffoldState> globalKey;
+  final Function removeItem;
 
-  CartTile(this.product);
+  CartTile(this.product, this.userId, this.globalKey, this.removeItem);
 
   @override
   _CartTileState createState() => _CartTileState();
 }
 
 class _CartTileState extends State<CartTile> {
+  final CartService _cartService = CartService();
   final _height = 100.0;
   String _imgUrl;
   CartItem _product;
@@ -27,8 +32,7 @@ class _CartTileState extends State<CartTile> {
     switch (selectedOption) {
       case CartOption.REMOVE:
         // TODO: remove item from cart list
-
-        print('Removing...');
+        widget.removeItem(_product, widget.userId);
         break;
       case CartOption.ADD_FAVORITE:
         // TODO: add item to favorite list
