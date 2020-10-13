@@ -20,9 +20,6 @@ class AuthService {
       user.uid,
       user.displayName,
       user.email,
-      null,
-      null,
-      null,
     );
   }
 

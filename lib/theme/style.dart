@@ -16,3 +16,9 @@ final defaultTheme = ThemeData(
   ),
   visualDensity: VisualDensity.adaptivePlatformDensity,
 );
+
+// payment text style
+final paymentTextStyle = TextStyle(
+  fontSize: 18.0,
+  color: Colors.grey[800],
+);
