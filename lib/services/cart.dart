@@ -17,7 +17,7 @@ class CartService {
   // Add to cart
   Future<bool> addToCart(Product product, String userId) async {
     // Finish the method if the product already in cart
-    if (await isInCart(product.id, userId)) return false;
+    // if (await isInCart(product.id, userId)) return false;
 
     CartItem cartItem = CartItem(
       1,
@@ -30,9 +30,12 @@ class CartService {
       product.price,
     );
 
-    return _users.doc(userId).update({
-      'cartList': FieldValue.arrayUnion([cartItem.toJson()])
-    }).then((value) {
+    return _users
+        .doc(userId)
+        .collection('cart')
+        .doc(cartItem.id)
+        .set(cartItem.toJson())
+        .then((value) {
       print('Product added to cart');
       return true;
     }).catchError((err) {
@@ -42,38 +45,57 @@ class CartService {
   }
 
   // Get cart list
-  Future<List<CartItem>> getAll(String userId) async {
-    // Get cart list
-    List<dynamic> result = await _users
+  Future<List<CartItem>> getAll(String userId) {
+    return _users
         .doc(userId)
+        .collection('cart')
         .get()
-        .then((value) => value.data()['cartList']);
+        .then((value) => value.docs.map((e) {
+              Map<String, dynamic> map = e.data();
+              map['addedAt'] = timestampToDateTime(map['addedAt']);
+              return CartItem.fromJson(map);
+            }).toList());
+  }
 
-    // Parse List<dynamic> to List<CartItem>
-    List<CartItem> items = result.map((e) {
-      e['addedAt'] = timestampToDateTime(e['addedAt']);
-      return CartItem.fromJson(e);
-    }).toList();
-
-    return items;
+  // Get one item
+  Future<CartItem> getOne(String id, String userId) {
+    return _users.doc(userId).collection('cart').doc(id).get().then((value) {
+      Map<String, dynamic> result = value.data();
+      if (result == null) return null;
+      result['addedAt'] = timestampToDateTime(result['addedAt']);
+      return CartItem.fromJson(result);
+    });
   }
 
   // Check if the product is in the cart
   Future<bool> isInCart(String productId, String userId) async {
-    List<CartItem> items = await getAll(userId);
-    for (CartItem item in items) if (item.id == productId) return true;
-    return false;
+    CartItem cartItem = await getOne(productId, userId);
+    if (cartItem == null) return false;
+    return true;
   }
 
   // Remove item
-  Future<bool> removeItem(CartItem product, String userId) {
-    return _users.doc(userId).update({
-      'cartList': FieldValue.arrayRemove([product.toJson()])
-    }).then((value) {
+  Future<bool> removeItem(String id, String userId) {
+    return _users.doc(userId).collection('cart').doc(id).delete().then((value) {
       print('Product removed from cart.');
       return true;
-    }).catchError((err){
+    }).catchError((err) {
       print('Failed to remove product from cart.');
+      return false;
+    });
+  }
+
+  // Increment amount
+  Future<bool> setAmount(String id, String userId, int amount) {
+    return _users
+        .doc(userId)
+        .collection('cart')
+        .doc(id)
+        .update({'amount': amount}).then((value) {
+      print('Amount updated');
+      return true;
+    }).catchError((err) {
+      print('Failed to update amount');
       return false;
     });
   }

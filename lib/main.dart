@@ -1,3 +1,4 @@
+import 'package:e_commerce/blocs/cart_provider.dart';
 import 'package:e_commerce/models/custom_user.dart';
 import 'package:e_commerce/screens/wrapper.dart';
 import 'package:e_commerce/services/auth.dart';
@@ -42,12 +43,14 @@ class App extends StatelessWidget {
               return null;
             },
             value: AuthService().user,
-            child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              title: 'E-commerce',
-              theme: defaultTheme,
-              home: Container(
-                child: Wrapper(),
+            child: CartProvider(
+              child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'E-commerce',
+                theme: defaultTheme,
+                home: Container(
+                  child: Wrapper(),
+                ),
               ),
             ),
           );

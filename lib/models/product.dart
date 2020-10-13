@@ -31,6 +31,15 @@ class Product {
     };
   }
 
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Product && runtimeType == other.runtimeType && _id == other._id;
+
+  @override
+  int get hashCode => _id.hashCode;
+
   @override
   String toString() {
     return 'Product{_id: $_id, _title: $_title, _description: $_description, _imgUrl: $_imgUrl, _price: $_price, _createdAt: $_createdAt}';

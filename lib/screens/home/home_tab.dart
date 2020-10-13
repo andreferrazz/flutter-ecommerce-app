@@ -1,3 +1,4 @@
+import 'package:e_commerce/blocs/cart_provider.dart';
 import 'package:e_commerce/models/cart_item.dart';
 import 'package:e_commerce/models/custom_user.dart';
 import 'package:e_commerce/models/product.dart';
@@ -11,23 +12,68 @@ import 'package:uuid/uuid.dart';
 class TestTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // int count = 1;
     return Center(
       child: RaisedButton(
         onPressed: () async {
-          CartItem product = await CartService()
-              .getAll(Provider.of<CustomUser>(context, listen: false).id)
-              .then((value) => value[0]);
-          CartService().removeItem(
-              product,
-              Provider.of<CustomUser>(context, listen: false).id);
+          /*
+              Increment and decrement amount of CartItem
+           */
+          // var userId = Provider.of<CustomUser>(context, listen: false).id;
+          // var id = '6ec1e3e1-0284-464b-944a-d9b4f9b64382';
+          // print(await CartService().setAmount(id, userId, ++count));
 
+          /*
+              Remove item from cart
+           */
+          // var userId = Provider.of<CustomUser>(context, listen: false).id;
+          // var id = '508466ff-fde6-4d88-990f-c7de56523588';
+          // print(await CartService().removeItem(id, userId));
+
+          /*
+              Get cart list
+           */
+          // var userId = Provider.of<CustomUser>(context, listen: false).id;
+          // print(await CartService().getAll(userId));
+
+          /*
+              Check if product is in the cart
+           */
+          // var id = '508466ff-fde6-4d88-990f-c7de56523588';
+          // var userId = Provider.of<CustomUser>(context, listen: false).id;
+          // print(await CartService().isInCart(id, userId));
+
+          /*
+              Get one product from cart
+           */
+          // var id = '508466ff-fde6-4d88-990f-c7de5652358';
+          // var userId = Provider.of<CustomUser>(context, listen: false).id;
+          // CartItem cartItem = await CartService().getOne(id, userId);
+          // print(cartItem);
+
+          /*
+              Remover item from cart
+           */
+          // CartItem product = await CartService()
+          //     .getAll(Provider.of<CustomUser>(context, listen: false).id)
+          //     .then((value) => value[0]);
+          // CartService().removeItem(
+          //     product,
+          //     Provider.of<CustomUser>(context, listen: false).id);
+
+          /*
+              Add a product to cart
+           */
           // Product product =
-          //     await ProductStorageService().getAll().then((value) => value[2]);
-          // print(product);
+          //     await ProductStorageService().getAll().then((value) => value[0]);
+          // // print(product);
           // bool result = await CartService().addToCart(
           //     product, Provider.of<CustomUser>(context, listen: false).id);
           // print(result);
 
+          /*
+              Add a product
+           */
           // ProductStorageService().addProduct(Product(
           //   'Monitor',
           //   'Um monitor da hora',

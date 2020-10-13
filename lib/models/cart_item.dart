@@ -43,7 +43,6 @@ class CartItem extends Product {
     };
   }
 
-
   @override
   String toString() {
     return super.toString() + 'CartItem{_amount: $_amount, _total: $_total, _addedAt: $_addedAt}';

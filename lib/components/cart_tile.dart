@@ -1,7 +1,11 @@
+import 'package:e_commerce/blocs/cart_bloc.dart';
+import 'package:e_commerce/blocs/cart_provider.dart';
 import 'package:e_commerce/models/cart_item.dart';
+import 'package:e_commerce/models/custom_user.dart';
 import 'package:e_commerce/services/cart.dart';
 import 'package:e_commerce/util/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CartTile extends StatefulWidget {
   final CartItem product;
@@ -43,8 +47,53 @@ class _CartTileState extends State<CartTile> {
     }
   }
 
+  void _incrementAmount(BuildContext context, CartBloc cartBloc) {
+    if (_product.amount == 10) return;
+    setState(() {
+      _product.amount++;
+      _product.total =
+          _product.amount * _product.price;
+    });
+    var userId = Provider.of<CustomUser>(context, listen: false).id;
+    _cartService.setAmount(_product.id, userId, _product.amount).then((value) {
+      if(value){
+        // TODO: update subtotal and total values on cart tab
+        cartBloc.updateItem.add(_product);
+      }else{
+        setState(() {
+          _product.amount--;
+          _product.total =
+              _product.amount * _product.price;
+        });
+      }
+    });
+  }
+
+  void _decrementAmount(BuildContext context, CartBloc cartBloc){
+    if (_product.amount == 1) return;
+    setState(() {
+      _product.amount--;
+      _product.total =
+          _product.amount * _product.price;
+    });
+    var userId = Provider.of<CustomUser>(context, listen: false).id;
+    _cartService.setAmount(_product.id, userId, _product.amount).then((value) {
+      if(value){
+        // TODO: update subtotal and total values on cart tab
+        cartBloc.updateItem.add(_product);
+      }else{
+        setState(() {
+          _product.amount++;
+          _product.total =
+              _product.amount * _product.price;
+        });
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final cartBloc = CartProvider.of(context);
     return Card(
       child: Row(
         children: <Widget>[
@@ -103,14 +152,8 @@ class _CartTileState extends State<CartTile> {
                               padding: const EdgeInsets.all(8.0),
                               child: Icon(Icons.remove, color: Colors.red),
                             ),
-                            onTap: () {
-                              // TODO: update subtotal and total values on cart tab
-                              if (_product.amount == 1) return;
-                              setState(() {
-                                _product.amount--;
-                                _product.total =
-                                    _product.amount * _product.price;
-                              });
+                            onTap: (){
+                              _decrementAmount(context, cartBloc);
                             },
                           ),
                           Text(
@@ -122,14 +165,8 @@ class _CartTileState extends State<CartTile> {
                               padding: const EdgeInsets.all(8.0),
                               child: Icon(Icons.add, color: Colors.blue),
                             ),
-                            onTap: () {
-                              // TODO: update subtotal and total values on cart tab
-                              if (_product.amount == 10) return;
-                              setState(() {
-                                _product.amount++;
-                                _product.total =
-                                    _product.amount * _product.price;
-                              });
+                            onTap: (){
+                              _incrementAmount(context, cartBloc);
                             },
                           ),
                         ],

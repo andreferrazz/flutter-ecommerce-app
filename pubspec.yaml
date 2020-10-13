@@ -37,6 +37,7 @@ dependencies:
   provider: ^4.3.2+1
   stripe_payment: ^1.0.8
   uuid: ^2.2.2
+  rxdart: ^0.24.1
 
 dev_dependencies:
   flutter_test:
