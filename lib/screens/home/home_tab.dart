@@ -17,6 +17,12 @@ class TestTab extends StatelessWidget {
       child: RaisedButton(
         onPressed: () async {
           /*
+              Clear cart
+           */
+          // var userId = Provider.of<CustomUser>(context, listen: false).id;
+          // CartService().clearCart(userId);
+
+          /*
               Increment and decrement amount of CartItem
            */
           // var userId = Provider.of<CustomUser>(context, listen: false).id;
@@ -74,14 +80,14 @@ class TestTab extends StatelessWidget {
           /*
               Add a product
            */
-          // ProductStorageService().addProduct(Product(
-          //   'Monitor',
-          //   'Um monitor da hora',
-          //   'https://firebasestorage.googleapis.com/v0/b/e-commerce-aa26b.appspot.com/o/product-images%2Fmouse-2.jpeg?alt=media&token=cf064742-7732-4ef7-849a-df4f034f6632',
-          //   8000,
-          //   id: Uuid().v4(),
-          //   createdAt: DateTime.now(),
-          // ));
+          ProductStorageService().addProduct(Product(
+            'HD externo 3TB',
+            'Um hd externo da hora',
+            'https://firebasestorage.googleapis.com/v0/b/e-commerce-aa26b.appspot.com/o/product-images%2Fhd-externo-2.jpeg?alt=media&token=da348a5d-0028-4a15-ad1e-7fc793b0fbbb',
+            100000,
+            id: Uuid().v4(),
+            createdAt: DateTime.now(),
+          ));
         },
         child: Text('Test'),
       ),

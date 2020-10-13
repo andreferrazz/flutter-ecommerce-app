@@ -1,12 +1,13 @@
 import 'dart:ui';
 
+import 'package:e_commerce/models/product.dart';
 import 'package:e_commerce/screens/details/product_details.dart';
 import 'package:e_commerce/util/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteTile extends StatefulWidget {
-  final Map<String, dynamic> product;
+  final Product product;
 
   FavoriteTile(this.product);
 
@@ -16,14 +17,14 @@ class FavoriteTile extends StatefulWidget {
 
 class _FavoriteTileState extends State<FavoriteTile> {
   final _height = 100.0;
-  Map<String, dynamic> _product;
+  // Map<String, dynamic> _product;
   String _imgUrl;
 
   @override
   void initState() {
     // TODO: implement initState
-    _product = widget.product;
-    _imgUrl = _product['imgUrl'] ??
+    // _product = widget.product;
+    _imgUrl = widget.product.imgUrl ??
         'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmoorestown-mall.com%2Fnoimage.gif&f=1&nofb=1';
     super.initState();
   }
@@ -51,7 +52,7 @@ class _FavoriteTileState extends State<FavoriteTile> {
           // TODO: navigate to product detail screen
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ProductDetails()),
+            MaterialPageRoute(builder: (context) => ProductDetails(widget.product)),
           );
         },
         child: Row(

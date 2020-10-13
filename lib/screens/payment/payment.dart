@@ -1,4 +1,7 @@
+import 'package:e_commerce/blocs/cart_provider.dart';
+import 'package:e_commerce/models/cart_item.dart';
 import 'package:e_commerce/models/custom_user.dart';
+import 'package:e_commerce/services/cart.dart';
 import 'package:e_commerce/services/payment.dart';
 import 'package:e_commerce/theme/style.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +9,10 @@ import 'package:provider/provider.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 
 class PaymentScreen extends StatefulWidget {
+  final double total;
+
+  PaymentScreen(this.total);
+
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
 }
@@ -13,15 +20,17 @@ class PaymentScreen extends StatefulWidget {
 class _PaymentScreenState extends State<PaymentScreen> {
   final GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
   final PaymentService _paymentService = PaymentService();
+  final CartService _carService = CartService();
   List<PaymentMethod> _paymentMethods;
   PaymentMethod _selected;
-  double _amount = 1000.0;
+  // double _amount = 1000.0;
 
   @override
   void initState() {
     // TODO: implement initState
     _paymentService.init();
-    _getPaymentMethods();
+    _paymentMethods = List();
+    // _getPaymentMethods();
     super.initState();
   }
 
@@ -38,23 +47,28 @@ class _PaymentScreenState extends State<PaymentScreen> {
   void _addPaymentMethod() {
     var userId = Provider.of<CustomUser>(this.context, listen: false).id;
     _paymentService.createPaymentMethod(userId).then((value) {
+      // print(value);
       if (value == null) return;
-      setState(() => _paymentMethods.add(value));
+      setState(() {
+        _paymentMethods.add(value);
+        _selected = value;
+      });
     });
   }
 
   void _performPayment() async {
     // Get payment intent
     PaymentIntent paymentIntent =
-        await _paymentService.createPaymentIntent(_amount, _selected);
+        await _paymentService.createPaymentIntent(widget.total, _selected);
 
     // Show user confirmation dialog
     var userChoice = await _showDialogAndGetTheResult();
 
     // confirm payment if user choice is true
-    if(userChoice){
+    if (userChoice) {
       bool result = await _paymentService.confirmPayment(paymentIntent);
-      if(!result){
+      print(result);
+      if (!result) {
         _globalKey.currentState.showSnackBar(SnackBar(
           backgroundColor: Colors.red,
           content: Text('Erro no pagamento! Transação cancelada'),
@@ -66,8 +80,12 @@ class _PaymentScreenState extends State<PaymentScreen> {
         content: Text('Pagamento efetuado com sucesso'),
         duration: Duration(seconds: 3),
       ));
-      // Navigator.pop(context);
-    }else{
+      bool clearResult = await _carService.clearCart(Provider.of<CustomUser>(context, listen: false).id);
+      if(clearResult){
+        CartProvider.of(context).cart.add(List<CartItem>());
+      }
+      Navigator.pop(context);
+    } else {
       _globalKey.currentState.showSnackBar(SnackBar(
         content: Text('Pagamento não efetuado'),
         duration: Duration(seconds: 3),
@@ -116,13 +134,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text('Total a pagar:', style: paymentTextStyle),
-                      Text('R\$ 1000.00', style: paymentTextStyle),
+                      Text('R\$ ${widget.total.toStringAsFixed(2)}', style: paymentTextStyle),
                     ],
                   ),
                 ),
                 Divider(height: 0, color: Colors.grey[300]),
                 _paymentMethods == null || _paymentMethods.isEmpty
-                    ? CircularProgressIndicator(strokeWidth: 2.0)
+                    ? Container()
                     : Column(
                         children: _paymentMethods
                             .map((p) => _buildListTile(p))
@@ -182,7 +200,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('Valor: R\$ $_amount', style: TextStyle(fontSize: 17.0)),
+                  Text('Valor: R\$ ${widget.total}', style: TextStyle(fontSize: 17.0)),
                   SizedBox(
                     height: 10.0,
                   ),

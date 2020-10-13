@@ -1,4 +1,5 @@
 import 'package:e_commerce/blocs/cart_provider.dart';
+import 'package:e_commerce/screens/payment/payment.dart';
 import 'package:flutter/material.dart';
 
 class CartTotal extends StatelessWidget {
@@ -71,8 +72,14 @@ class CartTotal extends StatelessWidget {
                   ],
                 ),
                 RaisedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    print("before await");
+                    double total = await cartBloc.subtotal.first;
+                    print("after await");
                     // TODO: redirect to payment page
+                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                      return PaymentScreen(total);
+                    }));
                   },
                   elevation: 0,
                   // color: Theme.of(context).primaryColor,

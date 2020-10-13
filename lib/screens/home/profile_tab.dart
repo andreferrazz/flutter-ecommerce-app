@@ -10,17 +10,49 @@ class ProfileTab extends StatelessWidget {
           contentPadding: EdgeInsets.only(top: 4.0, bottom: 4.0, left: 80.0),
           title: Text('Profile'),
         ),
-        ProfileTile(text: 'My info', icon: Icons.account_circle),
-        ProfileTile(text: 'Privacy and Security', icon: Icons.security),
-        ProfileTile(text: 'Logout', icon: Icons.person),
+        ProfileTile(
+          text: 'My info',
+          icon: Icons.account_circle,
+          onTap: () => featureNotImplemented(context),
+        ),
+        ProfileTile(
+          text: 'Privacy and Security',
+          icon: Icons.security,
+          onTap: () => featureNotImplemented(context),
+        ),
+        ProfileTile(
+          text: 'Logout',
+          icon: Icons.person,
+          onTap: () => featureNotImplemented(context),
+        ),
         ListTile(
           contentPadding: EdgeInsets.only(top: 4.0, bottom: 4.0, left: 80.0),
           title: Text('Support'),
         ),
-        ProfileTile(text: 'Terms of use', icon: Icons.description),
-        ProfileTile(text: 'Privacy Policy', icon: Icons.description),
-        ProfileTile(text: 'License', icon: Icons.description),
+        ProfileTile(
+          text: 'Terms of use',
+          icon: Icons.description,
+          onTap: () => featureNotImplemented(context),
+        ),
+        ProfileTile(
+          text: 'Privacy Policy',
+          icon: Icons.description,
+          onTap: () => featureNotImplemented(context),
+        ),
+        ProfileTile(
+          text: 'License',
+          icon: Icons.description,
+          onTap: () => featureNotImplemented(context),
+        ),
       ],
     );
+  }
+
+  void featureNotImplemented(BuildContext context) {
+    Scaffold.of(context).showSnackBar(SnackBar(
+      backgroundColor: Colors.yellow[700],
+      content: Text('Funcionalidade não disponível'),
+      duration: Duration(seconds: 3),
+    ));
   }
 }

@@ -85,6 +85,24 @@ class CartService {
     });
   }
 
+  // Clear cart
+  Future<bool> clearCart(String userId) {
+    return _users
+        .doc(userId)
+        .collection('cart')
+        .get()
+        .then((value) => value.docs)
+        .then((value) => value.forEach((element) {
+              _users
+                  .doc(userId)
+                  .collection('cart')
+                  .doc(element.data()['id'])
+                  .delete();
+            }))
+        .then((value) => true)
+        .catchError((err) => false);
+  }
+
   // Increment amount
   Future<bool> setAmount(String id, String userId, int amount) {
     return _users

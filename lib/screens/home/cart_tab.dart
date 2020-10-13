@@ -20,12 +20,6 @@ class CartTab extends StatefulWidget {
 class _CartTabState extends State<CartTab> {
   final CartService _cartService = CartService();
 
-  double subtotal = 0.0;
-
-  double shipping = 0.0;
-
-  double total = 0.0;
-
   Function removeItem;
 
   @override
@@ -66,34 +60,48 @@ class _CartTabState extends State<CartTab> {
 
         if (snapshot.connectionState == ConnectionState.done) {
           cartBloc.cart.add(snapshot.data);
-          // setState(() {
-          // subtotal = snapshot.data.fold(
-          //     0, (previousValue, element) => previousValue + element.total);
-          // subtotal /= 100;
-          // shipping = 0.0;
-          // total = subtotal + shipping;
-          // });
-          return Column(
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  padding: EdgeInsets.only(top: 8.0, right: 8.0, left: 8.0),
-                  child: ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) => CartTile(
-                      snapshot.data[index],
-                      Provider.of<CustomUser>(context, listen: false).id,
-                      widget.globalKey,
-                      removeItem,
-                    ),
-                  ),
-                ),
+          if (snapshot.data.isEmpty) {
+            return Center(
+              child: Text(
+                'O carrinho está vazio',
+                style: Theme.of(context).textTheme.headline4,
               ),
-              snapshot.data.isEmpty
-                  ? Container()
-                  : CartTotal(),
-            ],
-          );
+            );
+          }
+          return StreamBuilder<List<CartItem>>(
+              stream: cartBloc.items,
+              builder: (context, snapshot) {
+                if (snapshot.data == null || snapshot.data.isEmpty) {
+                  return Center(
+                    child: Text('Carrinho está vazio',
+                        style: Theme.of(context).textTheme.headline4),
+                  );
+                }
+                return Column(
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        padding:
+                            EdgeInsets.only(top: 8.0, right: 8.0, left: 8.0),
+                        child: ListView(
+                          children: snapshot.data
+                              .map((e) => CartTile(
+                                    e,
+                                    Provider.of<CustomUser>(
+                                      context,
+                                      listen: false,
+                                    ).id,
+                                    widget.globalKey,
+                                    removeItem,
+                                  ))
+                              .toList(),
+                        ),
+                      ),
+                    ),
+                    snapshot.data.isEmpty ? Container() : CartTotal(),
+                  ],
+                );
+              });
         }
 
         return Center(child: CircularProgressIndicator());

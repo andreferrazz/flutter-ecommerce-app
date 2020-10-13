@@ -23,7 +23,7 @@ class _ProductCardState extends State<ProductCard> {
 
   addToCart() {
     // Check if product is already in the cart
-    if(_isInCart){
+    if (_isInCart) {
       widget.globalKey.currentState.showSnackBar(SnackBar(
         // backgroundColor: Colors.red,
         content: Text('Product is already in the cart!'),
@@ -41,7 +41,7 @@ class _ProductCardState extends State<ProductCard> {
           duration: Duration(seconds: 3),
         ));
         setState(() => _isInCart = true);
-      }else {
+      } else {
         widget.globalKey.currentState.showSnackBar(SnackBar(
           backgroundColor: Colors.red,
           content: Text('Product not added to cart!'),
@@ -49,6 +49,14 @@ class _ProductCardState extends State<ProductCard> {
         ));
       }
     });
+  }
+
+  void addToFavorites() {
+    widget.globalKey.currentState.showSnackBar(SnackBar(
+      content: Text('Funcionlidade não disponível'),
+      backgroundColor: Colors.yellow[700],
+      duration: Duration(seconds: 3),
+    ));
   }
 
   @override
@@ -68,7 +76,8 @@ class _ProductCardState extends State<ProductCard> {
           // TODO: navigate to product detail screen
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ProductDetails()),
+            MaterialPageRoute(
+                builder: (context) => ProductDetails(widget.product)),
           );
         },
         child: Column(
@@ -110,10 +119,7 @@ class _ProductCardState extends State<ProductCard> {
                       alignment: MainAxisAlignment.end,
                       children: <Widget>[
                         InkWell(
-                          onTap: () {
-                            // TODO: add to favorite list(probably use a service for that)
-                            print('favorite');
-                          },
+                          onTap: addToFavorites,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Icon(

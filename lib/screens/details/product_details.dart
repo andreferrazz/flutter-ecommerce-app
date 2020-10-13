@@ -1,47 +1,82 @@
-import 'package:e_commerce/util/constants.dart';
+import 'package:e_commerce/models/custom_user.dart';
+import 'package:e_commerce/models/product.dart';
+import 'package:e_commerce/services/cart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductDetails extends StatefulWidget {
+  final Product product;
+
+  ProductDetails(this.product);
+
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
+  GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
+  String _userId;
   String _imgUrl;
-  Map<String, dynamic> _fakeProduct;
+  bool _isInCart = false;
+  bool _isInFavorites = false;
+  final CartService _cartService = CartService();
 
   @override
   void initState() {
     // TODO: implement initState
-    _fakeProduct = {
-      'title': 'Item1',
-      'description': fakeDescription,
-      'price': 150.0,
-      'imgUrl': null,
-      'cart': true,
-      'favorites': false,
-    };
-    _imgUrl = _fakeProduct['imgUrl'] ??
+    _userId = Provider.of<CustomUser>(context, listen: false).id;
+    _cartService.isInCart(widget.product.id, _userId).then((value) {
+      setState(() => _isInCart = value);
+    });
+    _imgUrl = widget.product.imgUrl ??
         'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fmoorestown-mall.com%2Fnoimage.gif&f=1&nofb=1';
     super.initState();
+  }
+
+  void addToCart() {
+    _cartService.addToCart(widget.product, _userId).then((value) {
+      setState(() {
+        _isInCart = true;
+      });
+      _globalKey.currentState.showSnackBar(SnackBar(
+        content: Text('${widget.product.title} adicionado ao carrinho'),
+        backgroundColor: Theme.of(context).primaryColor,
+        duration: Duration(seconds: 3),
+      ));
+    }).catchError((err) {
+      _globalKey.currentState.showSnackBar(SnackBar(
+        content: Text('Não foi possível adicionar ao carrinho'),
+        backgroundColor: Colors.red,
+        duration: Duration(seconds: 3),
+      ));
+    });
+  }
+
+  void addToFavorites() {
+    _globalKey.currentState.showSnackBar(SnackBar(
+      content: Text('Funcionlidade não disponível'),
+      backgroundColor: Colors.yellow[700],
+      duration: Duration(seconds: 3),
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _globalKey,
       appBar: AppBar(
-        title: Text(_fakeProduct['title']),
+        title: Text(widget.product.title),
         // centerTitle: true,
         elevation: 0.0,
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.favorite),
-            onPressed: (){},
+            onPressed: () {},
           ),
           IconButton(
             icon: Icon(Icons.shopping_cart),
-            onPressed: (){},
+            onPressed: () {},
           ),
         ],
       ),
@@ -73,7 +108,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             child: Row(
               children: <Widget>[
                 Text(
-                  '\$ ${_fakeProduct['price'].toStringAsFixed(2)}',
+                  '\$ ${widget.product.price.toStringAsFixed(2)}',
                   style: TextStyle(
                     fontSize: 40.0,
                     fontWeight: FontWeight.bold,
@@ -103,7 +138,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Text(
-              _fakeProduct['description'],
+              widget.product.description,
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontSize: 17.0,
@@ -132,33 +167,35 @@ class _ProductDetailsState extends State<ProductDetails> {
               vertical: 4.0,
             ),
             child: Row(
-
               children: <Widget>[
                 Expanded(
                   child: OutlineButton(
-                    onPressed: _fakeProduct['cart'] ? null : () {},
+                    onPressed: _isInCart ? null : addToCart,
                     color: Colors.white,
-                    borderSide: BorderSide(color: Theme.of(context).primaryColor),
+                    borderSide:
+                        BorderSide(color: Theme.of(context).primaryColor),
                     child: Text(
                       'Add to cart',
                       style: TextStyle(
-                        color: _fakeProduct['cart']
-                            ? null
-                            : Theme.of(context).primaryColor,
+                        color:
+                            _isInCart ? null : Theme.of(context).primaryColor,
                       ),
                     ),
                   ),
                 ),
-                SizedBox(width: 8.0,),
+                SizedBox(
+                  width: 8.0,
+                ),
                 Expanded(
                   child: OutlineButton(
-                    onPressed: _fakeProduct['favorites'] ? null : () {},
+                    onPressed: _isInFavorites ? null : addToFavorites,
                     color: Colors.white,
-                    borderSide: BorderSide(color: Theme.of(context).primaryColor),
+                    borderSide:
+                        BorderSide(color: Theme.of(context).primaryColor),
                     child: Text(
                       'Add to favorites',
                       style: TextStyle(
-                        color: _fakeProduct['favorites']
+                        color: _isInFavorites
                             ? null
                             : Theme.of(context).primaryColor,
                       ),

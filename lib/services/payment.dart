@@ -20,8 +20,8 @@ class PaymentService {
       .getHttpsCallable(functionName: 'createPaymentIntent');
 
   Future<PaymentMethod> createPaymentMethod(String userId) {
-    return StripePayment.paymentRequestWithCardForm(CardFormPaymentRequest())
-        .then((value) => _savePaymentMethod(userId, value));
+    return StripePayment.paymentRequestWithCardForm(CardFormPaymentRequest());
+        // .then((value) => _savePaymentMethod(userId, value));
   }
 
   Future<PaymentIntent> createPaymentIntent(
@@ -41,10 +41,11 @@ class PaymentService {
         paymentMethodId: paymentMethod.id, clientSecret: clientSecret);
   }
 
-  Future confirmPayment(PaymentIntent paymentIntent) async {
+  Future<bool> confirmPayment(PaymentIntent paymentIntent) async {
     String status = await StripePayment.confirmPaymentIntent(paymentIntent)
         .then((value) => value.status);
-    if (status == 'success') return true;
+
+    if (status == 'succeeded') return true;
     return false;
   }
 
