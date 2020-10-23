@@ -1,16 +1,27 @@
 # e_commerce
 
-E-commerce app.
+E-commerce app developed with flutter.
 
-## Getting Started
+<div style="display: flex; justify-content: space-between; width: 100%;"> 
+  <img src="https://github.com/andreferrazz/flutter-ecommerce-app/blob/master/assets/images/1.jpeg" alt="Preview Screen" width="200" height="auto"/>
+  <img src="https://github.com/andreferrazz/flutter-ecommerce-app/blob/master/assets/images/2.jpeg" alt="Preview Screen" width="200" height="auto"/>
+  <img src="https://github.com/andreferrazz/flutter-ecommerce-app/blob/master/assets/images/3.jpeg" alt="Preview Screen" width="200" height="auto"/>
+  <img src="https://github.com/andreferrazz/flutter-ecommerce-app/blob/master/assets/images/4.jpeg" alt="Preview Screen" width="200" height="auto"/>
+  <img src="https://github.com/andreferrazz/flutter-ecommerce-app/blob/master/assets/images/5.jpeg" alt="Preview Screen" width="200" height="auto"/>
+  <img src="https://github.com/andreferrazz/flutter-ecommerce-app/blob/master/assets/images/6.jpeg" alt="Preview Screen" width="200" height="auto"/>
+  <img src="https://github.com/andreferrazz/flutter-ecommerce-app/blob/master/assets/images/7.jpeg" alt="Preview Screen" width="200" height="auto"/>
+  <img src="https://github.com/andreferrazz/flutter-ecommerce-app/blob/master/assets/images/8.jpeg" alt="Preview Screen" width="200" height="auto"/>
+  <img src="https://github.com/andreferrazz/flutter-ecommerce-app/blob/master/assets/images/9.jpeg" alt="Preview Screen" width="200" height="auto"/>
+  <img src="https://github.com/andreferrazz/flutter-ecommerce-app/blob/master/assets/images/10.jpeg" alt="Preview Screen" width="200" height="auto"/>
+  <img src="https://github.com/andreferrazz/flutter-ecommerce-app/blob/master/assets/images/11.jpeg" alt="Preview Screen" width="200" height="auto"/>
+<!--   <img src="https://github.com/andreferrazz/flutter-ecommerce-app/blob/master/assets/images/12.jpeg" alt="Preview Screen" width="200" height="auto"/> -->
+  <img src="https://github.com/andreferrazz/flutter-ecommerce-app/blob/master/assets/images/14.jpeg" alt="Preview Screen" width="200" height="auto"/>
+</div>
 
-This project is a starting point for a Flutter application.
+## Some Observations
 
-A few resources to get you started if this is your first Flutter project:
+1 - This project is free to use as you wish, be for study, be for make modifications or earn money with it!
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+2 - This application uses Firebase services as a backend. Not all features are available all the time, since the project is in production.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3 - The firestore is required to access products and display the list of card.
